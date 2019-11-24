@@ -12,7 +12,7 @@
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Standard fullforwardshadows vertex:vert
 
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
@@ -37,6 +37,7 @@
 
 		void vert(inout appdata_full v)
 		{
+			float4 vertex_w = mul(unity_ObjectToWorld, float4(0, v.vertex.y, 0, 1));
 			float2 d = tex2Dlod(_DisplacementMap, float4(v.vertex.xy, 0, 0)).xy;
 			v.vertex.xy += (v.vertex.y + 1.0) * d.xy * 10;
 		}
